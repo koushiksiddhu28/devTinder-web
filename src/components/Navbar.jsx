@@ -1,10 +1,17 @@
-const Navbar=()=>{
-return(
-  <div className="navbar bg-base-100 shadow-sm">
-        <div className="flex-1">
-          <a className="btn btn-ghost text-xl">🧑‍💻DevTinder</a>
-        </div>
-        <div className="flex gap-2">
+import { useSelector } from "react-redux";
+
+const Navbar = () => {
+  const user = useSelector((store) => store.user);
+  return (
+    <div className="navbar bg-base-100 shadow-sm">
+      <div className="flex-1">
+        <a className="btn btn-ghost text-xl">🧑‍💻DevTinder</a>
+      </div>
+      {user && (
+        <div className="flex gap-2 ">
+          <div className="btn btn-ghost text-m px-0">
+            Welcome, {user.firstName}
+          </div>
           <div className="dropdown dropdown-end mx-5">
             <div
               tabIndex={0}
@@ -12,10 +19,7 @@ return(
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+                <img alt="user photo" src={user.photourl} />
               </div>
             </div>
             <ul
@@ -37,8 +41,9 @@ return(
             </ul>
           </div>
         </div>
-      </div>
-)
-}
+      )}
+    </div>
+  );
+};
 
-export default Navbar
+export default Navbar;
