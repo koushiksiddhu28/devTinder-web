@@ -1,37 +1,37 @@
-import axios from "axios";
-import { BASEURL } from "../utils/Constant";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addConnections } from "../utils/connectionSlice";
+import { BASEURL } from "../utils/Constant";
+import axios from "axios";
+import { addrequests } from "../utils/requestSlice";
+import { useEffect } from "react";
 
-const Connections = () => {
-  const connections = useSelector((store) => store.connections);
+const Requests = () => {
+  const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
-  const fetchConnections = async () => {
+  const fetchRequests = async () => {
     try {
-      const res = await axios.get(BASEURL + "/users/connections", {
+      const res = await axios.get(BASEURL + "/user/requests/received", {
         withCredentials: true,
       });
-      dispatch(addConnections(res.data.data));
+      dispatch(addrequests(res.data.data));
     } catch (err) {
       console.error(err);
     }
   };
   useEffect(() => {
-    fetchConnections();
+    fetchRequests();
   }, []);
-  if (!connections) {
+  if (!requests) {
     return <h1>Loading...</h1>;
   }
-  if (connections.length === 0) return <h1>No Connections Found!!</h1>;
+  if (requests.length === 0) return <h1>No Requests Found!!</h1>;
   return (
     <div className="w-full max-w-md mx-auto bg-base-100 rounded-2xl shadow-md overflow-hidden">
       <div className="px-5 py-4">
-        <h1 className="text-2xl font-bold">Connections</h1>
+        <h1 className="text-2xl font-bold">Requests</h1>
       </div>
-      {connections.map((connection) => {
+      {requests.map((request) => {
         const { _id, firstName, lastName, photourl, age, gender, about } =
-          connection;
+          request.fromUserId;
         return (
           <div
             key={_id}
@@ -54,10 +54,14 @@ const Connections = () => {
               )}
               <p className="text-sm text-gray-500 truncate">{about}</p>
             </div>
+            <button className="btn btn-active btn-info text-white">
+              Accept
+            </button>
+            <button className="btn btn-active">Reject</button>
           </div>
         );
       })}
     </div>
   );
 };
-export default Connections;
+export default Requests;

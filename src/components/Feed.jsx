@@ -23,7 +23,7 @@ const Feed = () => {
     getFeed();
   }, []);
   return (
-    feed && (
+    Array.isArray(feed) && feed.length > 0 && (
       <div className="flex justify-center my-6">
         <UserCard users={feed[0]} />
       </div>
