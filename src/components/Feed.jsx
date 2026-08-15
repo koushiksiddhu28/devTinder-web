@@ -22,8 +22,19 @@ const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
+  if (!feed) {
+    return <h1 className="flex justify-center my-10">Loading...</h1>;
+  }
+  if (feed.length <= 0) {
+    return (
+      <h1 className="flex justify-center my-10 text-2xl">
+        No new users found!🙋‍♂️
+      </h1>
+    );
+  }
   return (
-    Array.isArray(feed) && feed.length > 0 && (
+    Array.isArray(feed) &&
+    feed.length > 0 && (
       <div className="flex justify-center my-6">
         <UserCard users={feed[0]} />
       </div>

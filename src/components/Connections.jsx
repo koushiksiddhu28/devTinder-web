@@ -21,9 +21,12 @@ const Connections = () => {
     fetchConnections();
   }, []);
   if (!connections) {
-    return <h1>Loading...</h1>;
+    return <h1 className="flex justify-center my-10">Loading...</h1>;
   }
-  if (connections.length === 0) return <h1>No Connections Found!!</h1>;
+  if (connections.length === 0)
+    return (
+      <h1 className="flex justify-center my-10">No Connections Found!!</h1>
+    );
   return (
     <div className="w-full max-w-md mx-auto bg-base-100 rounded-2xl shadow-md overflow-hidden">
       <div className="px-5 py-4">
