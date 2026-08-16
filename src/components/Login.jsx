@@ -95,7 +95,7 @@ const Login = () => {
           </label>
           <label className="input">
             <input
-              type="text"
+              type="password"
               className="grow"
               placeholder="Password"
               value={password}
